@@ -2,87 +2,63 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-    crossorigin="anonymous">
-  <title>Walmart XML</title>
-  <link rel="stylesheet" href="./css/styles.css">
+	<title>Walmart | Carne </title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/main.css" />
 </head>
 
 <body>
-  <div class="walmart container-fluid d-flex px-0">
-    <div class="product-list col-4 px-0">
-      <div class="my-3 text-center">
-        <img src="media/cow.jpg" class="img-fluid" alt="logo carnes">
-        <h1 class="">Carnes</h1>
-      </div>
-      <div>
-        <div class="product d-flex">
-          <p id="price" class="price"></p>
-          <p id="name"></p>
-        </div>
-        <div class="product d-flex">
-          <p class="price">$79.00</p>
-          <p>Retazo con hueso - kg</p>
-        </div>
-        <div class="product d-flex">
-          <p class="price">$149.00</p>
-          <p>Arrachera ligera SK - kg</p>
-        </div>
-        <div class="product d-flex">
-          <p class="price">$159.00</p>
-          <p>Arrachera marinada SK - kg</p>
-        </div>
-      </div>
-    </div>
-    <div class="mkt col-8 px-0">
-      <div class="show d-flex col-12 px-0">
-        <div class="selected d-flex text-white col-4">
-          <p class="price">$129.00</p>
-          <p>Milanesa de bola de puerco - kg</p>
-        </div>
-        <div class="col-8 px-0">
-          <img src="./media/milanesa.jpg" class="img-fluid" alt="">
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyCg6kkujpivKP23aVtAuUu2Z7dNM237rn0",
-      authDomain: "walmart-xml.firebaseapp.com",
-      databaseURL: "https://walmart-xml.firebaseio.com",
-      projectId: "walmart-xml",
-      storageBucket: "walmart-xml.appspot.com",
-      messagingSenderId: "1036676259257"
-    };
-    firebase.initializeApp(config);
+	<div class="wrap" style="background-image: url(images/bg_01.jpg); border: 0px solid red;">
 
-    const dbRef = firebase.database().ref().child('product');
-    let name = document.getElementById('name');
-    let price = document.getElementById('price');
-    let product;
+		<!------------------ Content [start]---------------- -->
+		<div class="content">
+			<div class="price" style="border: 0px solid red;">
+				<h1 id="price"></h1>
+			</div>
+			<div class="tile" style="border: 0px solid red;">
+				<h3 id="name"></h3>
+			</div>
+		</div>
+		<!------------------ Content [ends]---------------- -->
 
-    function renderXml(product) {
-      let parser = new DOMParser;
-      let xmlDoc = parser.parseFromString(product, 'text/xml');
+	</div>
 
-      price.innerText = `$${xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue}.00`;
-      name.innerText = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
-    };
+	<script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyCg6kkujpivKP23aVtAuUu2Z7dNM237rn0",
+			authDomain: "walmart-xml.firebaseapp.com",
+			databaseURL: "https://walmart-xml.firebaseio.com",
+			projectId: "walmart-xml",
+			storageBucket: "walmart-xml.appspot.com",
+			messagingSenderId: "1036676259257"
+		};
+		firebase.initializeApp(config);
 
-    dbRef.on('value', snap => {
-      product = snap.val().productXml;
-      renderXml(product);
-    });
+		const dbRef = firebase.database().ref().child('product');
+		let name = document.getElementById('name');
+		let price = document.getElementById('price');
+		let product;
 
-  </script>
+		function renderXml(product) {
+			let parser = new DOMParser;
+			let xmlDoc = parser.parseFromString(product, 'text/xml');
+
+			price.innerText = `$${xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue}.00`;
+			name.innerText = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+		};
+
+		dbRef.on('value', snap => {
+			product = snap.val().productXml;
+			renderXml(product);
+		});
+
+	</script>
+
 </body>
 
 </html>
