@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Walmart XML</title>
+</head>
+
+<body>
+  <h1 id="name"></h1>
+  <p id="description"></p>
+  <p id="price"></p>
+
+  <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCg6kkujpivKP23aVtAuUu2Z7dNM237rn0",
+      authDomain: "walmart-xml.firebaseapp.com",
+      databaseURL: "https://walmart-xml.firebaseio.com",
+      projectId: "walmart-xml",
+      storageBucket: "walmart-xml.appspot.com",
+      messagingSenderId: "1036676259257"
+    };
+    firebase.initializeApp(config);
+
+    const dbRef = firebase.database().ref().child('product');
+    let name = document.getElementById('name');
+    let description = document.getElementById('description');
+    let price = document.getElementById('price');
+    let product;
+
+    function renderXml(product) {
+      let parser = new DOMParser;
+      let xmlDoc = parser.parseFromString(product, 'text/xml');
+
+      name.innerText = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
+      description.innerText = xmlDoc.getElementsByTagName("description")[0].childNodes[0].nodeValue;
+      price.innerText = xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue;
+    };
+
+    dbRef.on('value', snap => {
+      product = snap.val().productXml;
+      renderXml(product);
+    });
+
+  </script>
+</body>
+
+</html>
