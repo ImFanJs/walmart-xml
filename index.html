@@ -12,7 +12,7 @@
 
 	<div class="wrap" style="background-image: url(images/bg_01.jpg); border: 0px solid red;">
 
-		<!------------------ Content [start]---------------- -->
+		
 		<div class="content">
 			<div class="price" style="border: 0px solid red;">
 				<h1 id="price"></h1>
@@ -21,7 +21,7 @@
 				<h3 id="name"></h3>
 			</div>
 		</div>
-		<!------------------ Content [ends]---------------- -->
+		
 
 	</div>
 
@@ -48,7 +48,7 @@
 			let parser = new DOMParser;
 			let xmlDoc = parser.parseFromString(product, 'text/xml');
 
-			price.innerText = `$${xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue}.00`;
+			price.innerText = '$' + xmlDoc.getElementsByTagName("price")[0].childNodes[0].nodeValue + '.00;
 			name.innerText = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
 		};
 
