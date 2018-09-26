@@ -12,16 +12,42 @@
 
 	<div class="wrap" style="background-image: url(images/bg_01.jpg); border: 0px solid red;">
 
-		
-		<div class="content">
-			<div class="price" style="border: 0px solid red;">
-				<h1 id="price"></h1>
+
+		<div class="posicion">
+			<div class="content">
+				<div class="price" style="border: 0px solid red;">
+					<h1 id="price"></h1>
+				</div>
+				<div class="tile" style="border: 0px solid red;">
+					<h3 id="name"></h3>
+				</div>
 			</div>
-			<div class="tile" style="border: 0px solid red;">
-				<h3 id="name"></h3>
+			<div class="content">
+				<div class="price" style="border: 0px solid red;">
+					<h1 id="price">$90.00</h1>
+				</div>
+				<div class="tile" style="border: 0px solid red;">
+					<h3 id="name">Retazo con hueso </br>Kg</h3>
+				</div>
+			</div>
+			<div class="content">
+				<div class="price" style="border: 0px solid red;">
+					<h1 id="price">$120.00</h1>
+				</div>
+				<div class="tile" style="border: 0px solid red;">
+					<h3 id="name">Arrachera ligera </br>Sukarne Kg</h3>
+				</div>
+			</div>
+			<div class="content">
+				<div class="price" style="border: 0px solid red;">
+					<h1 id="price">$150.00</h1>
+				</div>
+				<div class="tile" style="border: 0px solid red;">
+					<h3 id="name">Arrachera marinada </br>Sukarne Kg</h3>
+				</div>
 			</div>
 		</div>
-		
+
 
 	</div>
 
@@ -52,7 +78,7 @@
 			name.innerText = xmlDoc.getElementsByTagName("name")[0].childNodes[0].nodeValue;
 		};
 
-		dbRef.on('value', function(snap) {
+		dbRef.on('value', function (snap) {
 			product = snap.val().productXml;
 			renderXml(product);
 		});
